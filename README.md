@@ -1,31 +1,48 @@
 <div align="center">
 
-# evative7-pykg-template
+# ld-ipc.py
 
-A project template for writing modern and distributable Python packages based on this, while ensuring unity of style and focus on code.
+Python SDK for LDPlayer IPC.
 
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/EvATive7/ld-ipc.py/package.yml)](https://github.com/EvATive7/ld-ipc.py/actions)
+[![Python](https://img.shields.io/pypi/pyversions/ld-ipc.py)](https://pypi.org/project/ld-ipc.py)
+[![PyPI version](https://badge.fury.io/py/ld-ipc.py.svg)](https://pypi.org/project/ld-ipc.py)
+[![Coverage Status](https://coveralls.io/repos/EvATive7/ld-ipc.py/badge.svg?branch=develop&service=github)](https://coveralls.io/github/EvATive7/ld-ipc.py?branch=master)
+[![License](https://img.shields.io/github/license/EvATive7/ld-ipc.py.svg)](https://pypi.org/project/ld-ipc.py/)
 
-<!-- TODO: Finish this if you need badges
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/YOURNAME/YOURREPO/package.yml)](https://github.com/YOURNAME/YOURREPO/actions)
-[![Python](https://img.shields.io/pypi/pyversions/YOURPROJECT)](https://pypi.org/project/YOURPROJECT)
-[![PyPI version](https://badge.fury.io/py/YOURPROJECT.svg)](https://pypi.org/project/YOURPROJECT)
-[![Coverage Status](https://coveralls.io/repos/YOURNAME/YOURREPO/badge.svg?branch=develop&service=github)](https://coveralls.io/github/YOURNAME/YOURREPO?branch=master)
-[![License](https://img.shields.io/github/license/YOURNAME/YOURREPO.svg)](https://pypi.org/project/YOURPROJECT/)
-
--->
 </div>
 
-## Quickstart
+## Usage
 
-1. Generate a new project with this template
-1. Set `Workflow permissions` to `Read and write permissions` on Github
-1. `python -m venv .venv`
-1. `source .venv/bin/activate`(bash) or `& .venv\Scripts\activate`(powershell)
-1. `pip install .[dev,build]`
-1. `pre-commit install`
-1. Finish docs, TODOs and codes
-   > If you need to publish to pypi...
-1. Change the `if` field of `pypi-publish` Job in [package.yml](./.github/workflows/package.yml) to `true`
-1. [Add a new pending publisher](https://pypi.org/manage/account/publishing/)
+Install the package using pip: `pip install ld-ipc.py`  
+
+```python
+from pathlib import Path
+
+from PIL import Image
+from ldipc import LDPlayer
+
+# Set the path and index of LDPlayer
+ldplayer_path = Path(r"C:\leidian\LDPlayer9")  # Replace with your LDPlayer path
+player_index = 0  # Replace with the index of players you want to capture
+
+try:
+    # Create an LDPlayer instance
+    ld_player = LDPlayer(ldplayer_path, player_index)
+
+    # capture screenshots
+    screenshot_array = ld_player.capture()
+
+    # Convert numpy array to PIL image and save
+    screenshot_image = Image.fromarray(screenshot_array)
+    screenshot_image.save("screenshot.png")
+
+    print("Screenshot has been saved as screenshot.png")
+except Exception as e:
+    print(f"Error capturing screenshot: {e}")
+
+```
+
+## Platform
+
+Only Windows is supported.
