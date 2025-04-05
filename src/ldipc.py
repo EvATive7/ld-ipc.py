@@ -111,6 +111,10 @@ class LDPlayer:
             self.screenshot_instance_ptr, ctypes.POINTER(_IScreenShotClass)
         ).contents
 
+    @property
+    def resolution(self):
+        return (self.width, self.height)
+
     def capture(self) -> np.ndarray:
         """
         Capture a screenshot of the current LDPlayer instance.
